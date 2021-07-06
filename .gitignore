@@ -38,3 +38,4 @@ target/
 logs/
 
 dependency-reduced-pom.xml
+src/main/resources/templates/indexOld.html

@@ -67,6 +67,19 @@ public class JsonParser {
 
     }
 
+    public static String extractStatusFromJson(String json){
+        String status = null;
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jNode = mapper.readTree(json);
+            status = jNode.get("status").asText();
+        }
+        catch (Exception e){
+            System.out.println("An error has occured while finding status.");
+        }
+        return status;
+    }    
+
 
     
 }
