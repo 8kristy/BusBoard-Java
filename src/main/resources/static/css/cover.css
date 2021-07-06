@@ -168,3 +168,21 @@ body {
     width: 700px;
   }
 }
+
+td, th{
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 1em;
+}
+
+table{
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.destination{
+  margin-left: 1em;
+  text-align: left;
+  width: 300px;
+}
+

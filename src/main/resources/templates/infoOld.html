@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+    <!--@thymesVar id="busInfo" type="training.busboard.web.BusInfo"-->
+
+    <head>
+        <title>Bus Information</title>
+        <meta http-equiv="refresh" content="30">
+    </head>
+    <body>
+        <div layout:fragment="content" class="container body-content">
+            <h2>Bus Information</h2>
+            <div>
+                <span th:each="busStop: ${busInfo.stops}">
+                        <h5 th:text="${busStop.name}"></h5>
+                        <tr th:each="time: ${busStop.busTimes}">
+                            <p>
+                                Bus <td th:text="${time.busId}" /> towards
+                                <td th:text="${time.direction}"/> due in 
+                                <td th:text="${time.time}" /> min
+                            </p>
+                        </tr>
+                </span>
+            </div>
+        </div>
+    </body>
+</html>

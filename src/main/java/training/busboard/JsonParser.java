@@ -39,7 +39,8 @@ public class JsonParser {
             for (JsonNode root : jNode){
                 int timeToStationInS = Integer.parseInt(root.get("timeToStation").asText());
                 String busId = root.get("lineId").asText();
-                Bus bus = new Bus(timeToStationInS, busId);
+                String direction = root.get("destinationName").asText();
+                Bus bus = new Bus(timeToStationInS, busId, direction);
                 buses.add(bus);
             }
     

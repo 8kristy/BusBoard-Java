@@ -3,6 +3,7 @@ package training.busboard;
 public class Bus{
     private int timeToStation;
     private String id;
+    private String direction;
 
     public double getTimeToStation() {
         return timeToStation;
@@ -16,9 +17,14 @@ public class Bus{
         return (int)Math.round(timeToStation);
     }
 
-    public Bus(int timeToStation, String id) {
+    public String getDirection(){
+        return direction;
+    }
+
+    public Bus(int timeToStation, String id, String direction) {
         this.timeToStation = timeToStation / 60;
         this.id = id;
+        this.direction = direction;
     }
 
 }

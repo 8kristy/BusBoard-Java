@@ -30,7 +30,7 @@ public class BusStop{
 
             ArrayList<Bus> buses = JsonParser.extractBusesFromJson(response);
             for (int i = 0; i < 5; i++){
-                BusTime time = new BusTime(buses.get(i).getId(), Integer.toString(buses.get(i).getIntegerTime()));
+                BusTime time = new BusTime(buses.get(i).getId(), Integer.toString(buses.get(i).getIntegerTime()), buses.get(i).getDirection());
                 busTimes.add(time);
             }
         }
