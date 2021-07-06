@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.springframework.boot.SpringApplication;
@@ -30,8 +31,17 @@ public class Website {
     ModelAndView busInfo(@RequestParam("postcode") String postcode) {
         Client client = ClientBuilder.newBuilder().register(JacksonFeature.class).build();
         BusInfo info = null;
+        String postcodeData = null;
         try{
-            String postcodeData = getApiResponse("http://api.postcodes.io/postcodes/"+ postcode, client);
+            postcodeData = getApiResponse("http://api.postcodes.io/postcodes/"+ postcode, client);
+        }
+        catch (Exception e){
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("error", "Invalid postcode");
+            return mv;
+        }
+            
+        try{        
             Coordinate coordinate = JsonParser.extractCoordinatesFromJson(postcodeData);
             String responseForBs = getApiResponse("https://api.tfl.gov.uk/StopPoint//?lat=" + coordinate.getlatitude() +
                                                     "&lon=" + coordinate.getlongitude() +
@@ -45,7 +55,8 @@ public class Website {
             System.out.println("An error has occured.");
         }
 
-        return new ModelAndView("info", "busInfo", info) ;
+
+        return new ModelAndView("info", "busInfo", info);
     }
 
     public static void main(String[] args) throws Exception {
