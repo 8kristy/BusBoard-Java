@@ -26,7 +26,7 @@ public class Website {
     ModelAndView home() {
         return new ModelAndView("index");
     }
-
+    
     @RequestMapping("/busInfo")
     ModelAndView busInfo(@RequestParam("postcode") String postcode) {
         Client client = ClientBuilder.newBuilder().register(JacksonFeature.class).build();
@@ -47,12 +47,19 @@ public class Website {
                                                     "&lon=" + coordinate.getlongitude() +
                                                     "&stopTypes=NaptanPublicBusCoachTram", client);
             ArrayList<BusStop> stops = JsonParser.extractBusStopsFromJson(responseForBs);
+            if (stops.size() == 0){
+                ModelAndView mv = new ModelAndView("index");
+                mv.addObject("error", "No nearby bus stops found :("); 
+                return mv;
+            }
             info = new BusInfo(postcode);
-            info.setStop1(stops.get(0));
-            info.setStop2(stops.get(1));
+            for (BusStop stop : stops){
+                info.addBusStop(stop);
+            }
         }
         catch (Exception e){
             System.out.println("An error has occured.");
+            e.printStackTrace();
         }
 
 
